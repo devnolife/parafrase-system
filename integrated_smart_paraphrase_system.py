@@ -444,8 +444,10 @@ class IntegratedSmartParaphraseSystem:
             paraphrase_results['skipped_paragraphs'] = processed_count - paraphrased_count
             
             # Save the modified document
-            output_path = self.save_paraphrased_document(doc, file_path)
-            paraphrase_results['output_file'] = output_path
+            output_info = self.save_paraphrased_document(doc, file_path)
+            if output_info:
+                paraphrase_results['output_files'] = output_info
+                paraphrase_results['output_file'] = output_info['paraphrased_file']  # Backward compatibility
             
             # Update statistics
             paraphrase_end = time.time()
@@ -465,16 +467,35 @@ class IntegratedSmartParaphraseSystem:
             return None
     
     def save_paraphrased_document(self, doc, original_path):
-        """Save the paraphrased document"""
+        """Save the paraphrased document in 'completed' folder"""
         try:
             path_obj = Path(original_path)
+            
+            # Create 'completed' folder if it doesn't exist
+            completed_dir = Path("completed")
+            completed_dir.mkdir(exist_ok=True)
+            
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
             output_filename = f"{path_obj.stem}_paraphrased_{timestamp}{path_obj.suffix}"
-            output_path = path_obj.parent / output_filename
+            output_path = completed_dir / output_filename
             
+            # Save paraphrased document
             doc.save(str(output_path))
-            print(f"\n💾 Paraphrased document saved: {output_path}")
-            return str(output_path)
+            
+            # Also copy original document to completed folder for comparison
+            original_copy = completed_dir / f"{path_obj.stem}_ORIGINAL_{timestamp}{path_obj.suffix}"
+            shutil.copy2(original_path, str(original_copy))
+            
+            print(f"\n💾 COMPLETED DOCUMENTS:")
+            print(f"   📄 Original: {original_copy}")
+            print(f"   🤖 Paraphrased: {output_path}")
+            print(f"   📁 Location: completed/ folder")
+            
+            return {
+                'paraphrased_file': str(output_path),
+                'original_copy': str(original_copy),
+                'completed_folder': str(completed_dir)
+            }
             
         except Exception as e:
             print(f"❌ Error saving paraphrased document: {e}")
@@ -621,7 +642,12 @@ class IntegratedSmartParaphraseSystem:
         if final_report['paraphrase_results']:
             paraphrase = final_report['paraphrase_results']
             print(f"   🤖 Auto-paraphrased: {paraphrase['paragraphs_paraphrased']} paragraphs")
-            if paraphrase.get('output_file'):
+            if paraphrase.get('output_files'):
+                output_files = paraphrase['output_files']
+                print(f"   📁 Results in completed/ folder:")
+                print(f"      📄 Original: {os.path.basename(output_files['original_copy'])}")
+                print(f"      🤖 Paraphrased: {os.path.basename(output_files['paraphrased_file'])}")
+            elif paraphrase.get('output_file'):
                 print(f"   💾 Output file: {os.path.basename(paraphrase['output_file'])}")
         
         # Recommendations
@@ -694,18 +720,80 @@ class IntegratedSmartParaphraseSystem:
             return None
 
 
+def find_docx_files():
+    """Find all .docx files in the project directory"""
+    docx_files = []
+    
+    # Search in current directory and subdirectories
+    for root, dirs, files in os.walk('.'):
+        # Skip backup and temporary directories
+        if any(skip in root for skip in ['backup', '__pycache__', '.git', 'venv']):
+            continue
+            
+        for file in files:
+            if file.endswith('.docx') and not file.startswith('~'):
+                full_path = os.path.join(root, file)
+                docx_files.append(full_path)
+    
+    return docx_files
+
+def select_document(auto_select=False):
+    """Let user select document to process"""
+    print("🔍 Searching for .docx documents...")
+    
+    docx_files = find_docx_files()
+    
+    if not docx_files:
+        print("❌ No .docx files found in the project directory")
+        print("💡 Please add your document to the project folder")
+        return None
+    
+    print(f"📄 Found {len(docx_files)} document(s):")
+    print("-" * 50)
+    
+    for i, file_path in enumerate(docx_files, 1):
+        file_size = os.path.getsize(file_path) / 1024  # KB
+        mod_time = datetime.fromtimestamp(os.path.getmtime(file_path)).strftime("%Y-%m-%d %H:%M")
+        print(f"  {i}. {os.path.basename(file_path)}")
+        print(f"     📂 {os.path.dirname(file_path)}")
+        print(f"     📏 {file_size:.1f} KB | 🕒 {mod_time}")
+        print()
+    
+    # Auto-select first document if in auto mode or non-interactive
+    if auto_select or len(docx_files) == 1:
+        selected_file = docx_files[0]
+        print(f"✅ Auto-selected: {os.path.basename(selected_file)}")
+        return selected_file
+    
+    # Interactive selection
+    while True:
+        try:
+            choice = input(f"Select document (1-{len(docx_files)}) [default: 1]: ").strip() or '1'
+            index = int(choice) - 1
+            
+            if 0 <= index < len(docx_files):
+                selected_file = docx_files[index]
+                print(f"✅ Selected: {os.path.basename(selected_file)}")
+                return selected_file
+            else:
+                print(f"❌ Please enter a number between 1 and {len(docx_files)}")
+                
+        except (ValueError, EOFError):
+            # Fallback to auto-select if input fails
+            selected_file = docx_files[0]
+            print(f"✅ Auto-selected (input unavailable): {os.path.basename(selected_file)}")
+            return selected_file
+
 def main():
     """Main function for integrated smart paraphrase system"""
     print("🚀 INTEGRATED SMART PARAPHRASE SYSTEM")
     print("🎯 Complete Solution: Detection → Analysis → Paraphrasing → Reporting")
     print("=" * 80)
     
-    # Document to process
-    document_path = 'documents/SKRIPSI  FAHRISAL FADLI-2.docx'
+    # Let user select document to process (with auto-fallback)
+    document_path = select_document(auto_select=True)
     
-    if not os.path.exists(document_path):
-        print(f"❌ Document not found: {document_path}")
-        print("💡 Place your document in the 'documents/' folder")
+    if not document_path:
         return
     
     # Initialize integrated system
@@ -717,14 +805,18 @@ def main():
     # Process document completely
     print(f"\n🎯 Processing document: {os.path.basename(document_path)}")
     
-    # Ask user for processing options
-    print(f"\n🤔 Processing options:")
-    print(f"   1. Analysis only (no auto-paraphrasing)")
-    print(f"   2. Complete processing (analysis + auto-paraphrasing)")
-    
-    choice = input("Choose option (1/2) [default: 2]: ").strip() or '2'
-    
-    auto_paraphrase = choice == '2'
+    # Auto-processing options (with fallback for non-interactive mode)
+    try:
+        print(f"\n🤔 Processing options:")
+        print(f"   1. Analysis only (no auto-paraphrasing)")
+        print(f"   2. Complete processing (analysis + auto-paraphrasing)")
+        
+        choice = input("Choose option (1/2) [default: 2]: ").strip() or '2'
+        auto_paraphrase = choice == '2'
+    except EOFError:
+        # Auto-fallback for non-interactive environments
+        print("🤖 Auto-mode: Running complete processing (analysis + auto-paraphrasing)")
+        auto_paraphrase = True
     
     # Start processing
     final_report = system.process_document_complete(document_path, auto_paraphrase=auto_paraphrase)
@@ -736,7 +828,13 @@ def main():
         # Show quick stats
         if final_report['paraphrase_results'] and final_report['paraphrase_results']['paragraphs_paraphrased'] > 0:
             print(f"🤖 Auto-paraphrased: {final_report['paraphrase_results']['paragraphs_paraphrased']} paragraphs")
-            print(f"💾 Output file: {os.path.basename(final_report['paraphrase_results']['output_file'])}")
+            if 'output_files' in final_report['paraphrase_results']:
+                output_files = final_report['paraphrase_results']['output_files']
+                print(f"📁 Check 'completed/' folder for:")
+                print(f"   📄 Original: {os.path.basename(output_files['original_copy'])}")
+                print(f"   🤖 Paraphrased: {os.path.basename(output_files['paraphrased_file'])}")
+            elif 'output_file' in final_report['paraphrase_results']:
+                print(f"💾 Output file: {os.path.basename(final_report['paraphrase_results']['output_file'])}")
         
     else:
         print("❌ Processing failed. Please check the error messages above.")

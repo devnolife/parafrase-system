@@ -497,6 +497,23 @@ class PlagiarismDetector:
         print("=" * 80)
 
 
+def find_docx_files():
+    """Find all .docx files in the project directory"""
+    docx_files = []
+    
+    # Search in current directory and subdirectories
+    for root, dirs, files in os.walk('.'):
+        # Skip backup and temporary directories
+        if any(skip in root for skip in ['backup', '__pycache__', '.git', 'venv']):
+            continue
+            
+        for file in files:
+            if file.endswith('.docx') and not file.startswith('~'):
+                full_path = os.path.join(root, file)
+                docx_files.append(full_path)
+    
+    return docx_files
+
 def main():
     """Main function untuk plagiarism detection"""
     print("🔍 PLAGIARISM DETECTOR - Online Source Checker")
@@ -505,8 +522,22 @@ def main():
     # Initialize detector
     detector = PlagiarismDetector()
     
-    # Scan document in documents folder
-    document_path = 'documents/SKRIPSI  FAHRISAL FADLI-2.docx'
+    # Find available documents
+    print("🔍 Searching for documents...")
+    docx_files = find_docx_files()
+    
+    if not docx_files:
+        print("❌ No .docx files found in the project directory")
+        print("💡 Please add your document to the project folder")
+        return
+    
+    # Use the first document found, or let user choose
+    document_path = docx_files[0]
+    
+    if len(docx_files) > 1:
+        print(f"📄 Found {len(docx_files)} documents. Using: {os.path.basename(document_path)}")
+    else:
+        print(f"📄 Found document: {os.path.basename(document_path)}")
     
     if os.path.exists(document_path):
         scan_results = detector.scan_document_for_plagiarism(document_path)

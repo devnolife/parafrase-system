@@ -498,7 +498,7 @@ class PlagiarismDetector:
 
 
 def find_docx_files():
-    """Find all .docx files in the project directory"""
+    """Find all .docx files in the project directory with priority for documents/ folder"""
     docx_files = []
     
     # Search in current directory and subdirectories
@@ -510,7 +510,12 @@ def find_docx_files():
         for file in files:
             if file.endswith('.docx') and not file.startswith('~'):
                 full_path = os.path.join(root, file)
-                docx_files.append(full_path)
+                
+                # Prioritize files from documents/ folder
+                if root == './documents':
+                    docx_files.insert(0, full_path)  # Add to beginning
+                else:
+                    docx_files.append(full_path)  # Add to end
     
     return docx_files
 

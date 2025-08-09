@@ -1,0 +1,123 @@
+{
+  "processing_info": {
+    "input_file": "documents/BAB III - 2025-08-05T085343.369_invisible_20250808_181021.docx",
+    "output_file": "completed/BAB III - 2025-08-05T085343.369_invisible_20250808_181021_paraphrased.docx",
+    "processing_time": "0:06:04.655419",
+    "timestamp": "2025-08-08T11:10:29.230897"
+  },
+  "summary": {
+    "total_paragraphs": 49,
+    "protected_content": 18,
+    "successfully_paraphrased": 31,
+    "average_similarity_reduction": 46.09,
+    "average_quality_score": 79.81
+  },
+  "costs": {
+    "total_api_calls": 31,
+    "total_tokens_used": 7125,
+    "total_cost_usd": 0.0,
+    "paragraphs_processed": 31,
+    "protected_content": 18
+  },
+  "protected_items": [
+    {
+      "text": "A. Jenis Penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "B. Fokus penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "C. Lokasi Dan Waktu Penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "D. Jenis dan Sumber data",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Kepala Dinas",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Kepala Bidang",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Kepala Sub Bagian Perencanaan dan Pelaporan",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "F. Teknik Pengumpulan ‍Data",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Observasi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Wawancara",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Dokumentasi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "G. Definisi Operasional",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Biaya Produksi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Metode penentuan biaya",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek teknis",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek sosial",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek finansial",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Tabel 3. 1 \nPerhitungan Biaya dalam metode Variable Costing",
+      "category": "tables_figures",
+      "pattern": "^Tabel\\s+\\d+.*"
+    }
+  ],
+  "quality_distribution": {
+    "excellent": 18,
+    "good": 13,
+    "fair": 0,
+    "poor": 0,
+    "average": 79.81,
+    "highest": 95.47,
+    "lowest": 64.78
+  }
+}

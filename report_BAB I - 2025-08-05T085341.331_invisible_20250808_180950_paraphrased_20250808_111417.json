@@ -1,0 +1,168 @@
+{
+  "processing_info": {
+    "input_file": "documents/BAB I - 2025-08-05T085341.331_invisible_20250808_180950.docx",
+    "output_file": "completed/BAB I - 2025-08-05T085341.331_invisible_20250808_180950_paraphrased.docx",
+    "processing_time": "0:09:52.556946",
+    "timestamp": "2025-08-08T11:14:17.132422"
+  },
+  "summary": {
+    "total_paragraphs": 27,
+    "protected_content": 9,
+    "successfully_paraphrased": 18,
+    "average_similarity_reduction": 47.67,
+    "average_quality_score": 78.44
+  },
+  "costs": {
+    "total_api_calls": 49,
+    "total_tokens_used": 12519,
+    "total_cost_usd": 0.0,
+    "paragraphs_processed": 49,
+    "protected_content": 27
+  },
+  "protected_items": [
+    {
+      "text": "A. Jenis Penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "B. Fokus penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "C. Lokasi Dan Waktu Penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "D. Jenis dan Sumber data",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Kepala Dinas",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Kepala Bidang",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Kepala Sub Bagian Perencanaan dan Pelaporan",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "F. Teknik Pengumpulan ‍Data",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Observasi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Wawancara",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Dokumentasi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "G. Definisi Operasional",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Biaya Produksi",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Metode penentuan biaya",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek teknis",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek sosial",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Aspek finansial",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Tabel 3. 1 \nPerhitungan Biaya dalam metode Variable Costing",
+      "category": "tables_figures",
+      "pattern": "^Tabel\\s+\\d+.*"
+    },
+    {
+      "text": "BAB I",
+      "category": "titles",
+      "pattern": "^BAB\\s+[IVX]+.*"
+    },
+    {
+      "text": "PENDAHULUAN",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Tabel 1. 1\nKondisi Proyek Pembangunan Saranа-Prasarana Kabupaten Pangakejene dan Kepulauaн Tаhun 202",
+      "category": "tables_figures",
+      "pattern": "^Tabel\\s+\\d+.*"
+    },
+    {
+      "text": "Tabel 1.  2 \nDaftar Pelaksanaan Anggaran (DPA) Dinas Perhubungan Kabupaten Pangakejene dan Kepulauan",
+      "category": "tables_figures",
+      "pattern": "^Tabel\\s+\\d+.*"
+    },
+    {
+      "text": "Tabel 1. 2 di atas menunjukkan bahwa, terdapat 2 (dua) peket kegiatan rehab dan kegiatan pembangunan",
+      "category": "tables_figures",
+      "pattern": "^Tabel\\s+\\d+.*"
+    },
+    {
+      "text": "B. Rumusan Masalah",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "D. Manfaat Penelitian",
+      "category": "headings",
+      "pattern": "^[A-Z]\\.\\s+[A-Z].*"
+    },
+    {
+      "text": "Manfaat teoritis",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    },
+    {
+      "text": "Manfaat Praktis",
+      "category": "titles",
+      "pattern": "^[A-Z][A-Z\\s]{5,}$"
+    }
+  ],
+  "quality_distribution": {
+    "excellent": 7,
+    "good": 11,
+    "fair": 0,
+    "poor": 0,
+    "average": 78.44,
+    "highest": 97.24,
+    "lowest": 64.03
+  }
+}

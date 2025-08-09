@@ -1,0 +1,33 @@
+{
+  "processing_info": {
+    "input_file": "documents/BAB I - 2025-08-05T085341.331_invisible_20250808_180950.docx",
+    "output_file": "completed/BAB I - 2025-08-05T085341.331_invisible_20250808_180950_efficient.docx",
+    "timestamp": "2025-08-08T11:57:42.019511",
+    "processing_time": "0:00:10.660460"
+  },
+  "efficiency_summary": {
+    "total_paragraphs": 27,
+    "local_only_success": 21,
+    "ai_refinement_used": 0,
+    "protected_content": 6,
+    "cost_savings_percent": 100.0
+  },
+  "quality_metrics": {
+    "average_similarity_reduction": 30.67,
+    "average_quality_score": 96.19
+  },
+  "cost_tracking": {
+    "local_paraphrases": 53,
+    "ai_quality_checks": 0,
+    "ai_refinements": 2,
+    "total_api_calls": 2,
+    "protected_content": 23,
+    "cost_savings_percent": 100.0
+  },
+  "processing_stats": {
+    "start_time": "2025-08-08T11:57:31.359059",
+    "quality_improvements": 10,
+    "perfect_local_results": 51,
+    "ai_refinement_needed": 2
+  }
+}

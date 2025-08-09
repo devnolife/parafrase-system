@@ -721,8 +721,12 @@ class IntegratedSmartParaphraseSystem:
 
 
 def find_docx_files():
-    """Find all .docx files in the project directory"""
+    """Find all .docx files in the project directory with priority order"""
     docx_files = []
+    
+    # Priority order: documents/ folder first, then others
+    priority_folders = ['./documents', '.']
+    other_files = []
     
     # Search in current directory and subdirectories
     for root, dirs, files in os.walk('.'):
@@ -733,7 +737,12 @@ def find_docx_files():
         for file in files:
             if file.endswith('.docx') and not file.startswith('~'):
                 full_path = os.path.join(root, file)
-                docx_files.append(full_path)
+                
+                # Prioritize files from documents/ folder
+                if root == './documents':
+                    docx_files.insert(0, full_path)  # Add to beginning
+                else:
+                    docx_files.append(full_path)  # Add to end
     
     return docx_files
 
